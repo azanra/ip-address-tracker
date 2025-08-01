@@ -1,8 +1,15 @@
+import { useState } from "react";
 import "./App.css";
 import Body from "./component/Body";
 import Header from "./component/Header";
 
 function App() {
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const handleChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
   const data = {
     ip: "8.8.8.8",
     location: {
@@ -33,7 +40,7 @@ function App() {
   };
   return (
     <div>
-      <Header />
+      <Header handleChange={handleChange} />
       <Body data={data} />
     </div>
   );
