@@ -30,7 +30,6 @@ const Info = ({ data }) => {
   ];
   return (
     <div>
-      <InfoContainer label="IP ADDRESS" data={ip} />
       {renderData.map((renderedData, index) => {
         return (
           <InfoContainer
