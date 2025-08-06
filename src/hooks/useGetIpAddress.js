@@ -28,7 +28,10 @@ function useGetIpAddress(searchKeyword) {
 }
 
 function getUrl(searchKeyword) {
-  if (isValidUrl(searchKeyword)) {
+  if (searchKeyword.length === 0) {
+    const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}`;
+    return url;
+  } else if (isValidUrl(searchKeyword)) {
     const urlInput = new URL(searchKeyword);
     const domain = urlInput.host;
     const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}&domain=${domain}`;
@@ -36,36 +39,30 @@ function getUrl(searchKeyword) {
   } else if (isValidIpAddress(searchKeyword)) {
     const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}&ipAddress=${searchKeyword}`;
     return url;
-  } else if (searchKeyword.length === 0) {
-    const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}`;
-    return url;
   } else {
     return false;
   }
 }
 
-function isValidUrl(searchKeyword) {
+export function isValidUrl(searchKeyword) {
   try {
-    let url = new URL(searchKeyword);
-    return url;
+    new URL(searchKeyword);
+    return true;
   } catch {
-    alert(new Error("Not a valid url!"));
+    console.log(new Error("Not a valid url!"));
+    return false;
   }
 }
 
-function isValidIpAddress(searchKeyword) {
+export function isValidIpAddress(searchKeyword) {
   /*
   https://stackoverflow.com/questions/23483855/javascript-regex-to-validate-ipv4-and-ipv6-address-no-hostnames/69685444#69685444
   */
   const ipv46_regex =
     /(?:^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$)|(?:^(?:(?:[a-fA-F\d]{1,4}:){7}(?:[a-fA-F\d]{1,4}|:)|(?:[a-fA-F\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|:[a-fA-F\d]{1,4}|:)|(?:[a-fA-F\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,2}|:)|(?:[a-fA-F\d]{1,4}:){4}(?:(?::[a-fA-F\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,3}|:)|(?:[a-fA-F\d]{1,4}:){3}(?:(?::[a-fA-F\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,4}|:)|(?:[a-fA-F\d]{1,4}:){2}(?:(?::[a-fA-F\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,5}|:)|(?:[a-fA-F\d]{1,4}:){1}(?:(?::[a-fA-F\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,6}|:)|(?::(?:(?::[a-fA-F\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,7}|:)))(?:%[0-9a-zA-Z]{1,})?$)/gm;
 
-  try {
-    const isValid = ipv46_regex.test(searchKeyword);
-    return isValid;
-  } catch {
-    alert(new Error("Not a valid ip address!"));
-  }
+  const isValid = ipv46_regex.test(searchKeyword);
+  return isValid;
 }
 
 export default useGetIpAddress;
