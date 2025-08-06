@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 const APIKEY = "at_SNRnb8LP1ushNxlF7SpgpK4RSXsS0";
 
-function useGetIpAddress(searchKeyword) {
+function useGetIpAddress(searchKeyword, firstTimeRenderFetchOwnIp) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const url = getUrl(searchKeyword);
+  const url = getUrl(searchKeyword, firstTimeRenderFetchOwnIp);
 
   useEffect(() => {
     if (!url) return;
@@ -27,8 +27,8 @@ function useGetIpAddress(searchKeyword) {
   return { data, loading, error };
 }
 
-function getUrl(searchKeyword) {
-  if (searchKeyword.length === 0) {
+function getUrl(searchKeyword, firstTimeRenderFetchOwnIp) {
+  if (searchKeyword.length === 0 && firstTimeRenderFetchOwnIp) {
     const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}`;
     return url;
   } else if (isValidUrl(searchKeyword)) {
