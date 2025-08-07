@@ -27,8 +27,8 @@ const Header = ({ handleChange }) => {
           name="keyword"
           id="keyword"
           onChange={debounceKeyword}
+          placeholder="Search for any IP address or URL"
         />
-        <button>{">"}</button>
       </div>
     </div>
   );
