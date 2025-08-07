@@ -49,7 +49,6 @@ export function isValidUrl(searchKeyword) {
     new URL(searchKeyword);
     return true;
   } catch {
-    console.log(new Error("Not a valid url!"));
     return false;
   }
 }

@@ -1,5 +1,8 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useEffect } from "react";
+
+const DEFAULT_ZOOM = 13;
 
 const LocationMap = ({ data }) => {
   const { location } = data;
@@ -8,7 +11,7 @@ const LocationMap = ({ data }) => {
     <div>
       <MapContainer
         center={[lat, lng]}
-        zoom={13}
+        zoom={DEFAULT_ZOOM}
         style={{ height: "100vh", width: "100vw" }}
       >
         <TileLayer
@@ -20,9 +23,18 @@ const LocationMap = ({ data }) => {
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
+        <RecenterAutomatically lat={lat} lng={lng} />
       </MapContainer>
     </div>
   );
+};
+
+const RecenterAutomatically = ({ lat, lng }) => {
+  const map = useMap();
+  useEffect(() => {
+    map.setView([lat, lng], DEFAULT_ZOOM);
+    console.log("New coordinate!");
+  }, [lat, lng, map]);
 };
 
 export default LocationMap;
