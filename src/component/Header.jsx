@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 
 const Header = ({ handleChange }) => {
   const debounceKeyword = useMemo(() => {
+    console.log("debounce is memoized");
     return debounce(handleChange, 500);
   }, [handleChange]);
 
@@ -11,6 +12,7 @@ const Header = ({ handleChange }) => {
   */
 
   useEffect(() => {
+    console.log("Debounce is canceled");
     return () => {
       debounceKeyword.cancel();
     };
@@ -26,7 +28,7 @@ const Header = ({ handleChange }) => {
           type="text"
           name="keyword"
           id="keyword"
-          onChange={debounceKeyword}
+          onChange={(e) => debounceKeyword(e.target.value)}
           placeholder="Search for any IP address or URL"
         />
       </div>

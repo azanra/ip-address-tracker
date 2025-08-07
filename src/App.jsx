@@ -50,17 +50,13 @@ function App() {
   //   isp: "Google LLC",
   // };
 
-  const handleChange = (e) => {
-    setSearchKeyword(e.target.value);
-  };
-
   useEffect(() => {
     setFirstTimeRenderFetchOwnIp(false);
   }, []);
 
   return (
     <div>
-      <Header handleChange={handleChange} />
+      <Header handleChange={setSearchKeyword} />
       {keywordIsNotValid && searchKeyword.length > 0 && (
         <p>Not a valid ip address or url...</p>
       )}
