@@ -12,8 +12,6 @@ function useGetIpAddress(searchKeyword, isFirstRender) {
   useEffect(() => {
     if (!url) return;
 
-    let ignore = false;
-
     fetch(url)
       .then((response) => {
         if (response.status >= 400) {
@@ -21,17 +19,9 @@ function useGetIpAddress(searchKeyword, isFirstRender) {
         }
         return response.json();
       })
-      .then((json) => {
-        if (!ignore) {
-          setData(json);
-        }
-      })
+      .then((json) => setData(json))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-
-    return () => {
-      ignore = true;
-    };
   }, [url]);
 
   return { data, loading, error };

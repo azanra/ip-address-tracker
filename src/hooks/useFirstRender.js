@@ -6,7 +6,7 @@ function useFirstRender() {
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
-    console.log("first render to true !");
+    console.log("first render to false!");
     return () => {
       isFirstRender.current = true;
       console.log("Cleaning up first render to false");
