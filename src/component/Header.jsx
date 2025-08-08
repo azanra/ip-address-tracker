@@ -7,16 +7,24 @@ const Header = ({ handleChange }) => {
     return debounce(handleChange, 500);
   }, [handleChange]);
 
-  /* handleChange is state setter. because it is passed as props eslint complain
+  /* 
+    handleChange is state setter and it stable, but because it is 
+    passed as props eslint complains
     (https://stackoverflow.com/questions/59198906/why-is-a-state-variables-setter-needed-as-a-dependency-with-useeffect-when-pass)
   */
 
   useEffect(() => {
-    console.log("Debounce is canceled");
     return () => {
+      console.log("Debounce is canceled");
       debounceKeyword.cancel();
     };
   }, [debounceKeyword]);
+
+  /*  
+    debouncedKeyword is stable because it cached the debounce funct 
+    with useMemo and since the dependancy of useMemo is state setter 
+    then it should be stable (https://react.dev/reference/react/useMemo)
+  */
 
   return (
     <div>

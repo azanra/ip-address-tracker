@@ -31,9 +31,15 @@ const LocationMap = ({ data }) => {
 
 const RecenterAutomatically = ({ lat, lng }) => {
   const map = useMap();
+  /*  
+    map is stable tested with useEffect even though it is object (https://stackoverflow.com/questions/69861840/how-to-detect-a-variable-change-in-react-js-solidity)
+    it should rerun only when lat and lng changes 
+  */
   useEffect(() => {
     map.setView([lat, lng], DEFAULT_ZOOM);
     console.log("New coordinate!");
+
+    return () => console.log("Cleaning up coordinate");
   }, [lat, lng, map]);
 };
 

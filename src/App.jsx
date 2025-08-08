@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Body from "./component/Body";
 import Header from "./component/Header";
@@ -6,19 +6,20 @@ import useGetIpAddress, {
   isValidIpAddress,
   isValidUrl,
 } from "./hooks/useGetIpAddress";
+import useFirstRender from "./hooks/useFirstRender";
 
 function App() {
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [firstTimeRenderFetchOwnIp, setFirstTimeRenderFetchOwnIp] =
-    useState(true);
 
   const keywordIsValidUrl = isValidUrl(searchKeyword);
   const keywordIsValidIp = isValidIpAddress(searchKeyword);
   const keywordIsNotValid = !keywordIsValidIp && !keywordIsValidUrl;
 
+  const isFirstRender = useFirstRender();
+
   const { data, loading, error } = useGetIpAddress(
     searchKeyword,
-    firstTimeRenderFetchOwnIp
+    isFirstRender
   );
 
   // const data = {
@@ -49,10 +50,6 @@ function App() {
   //   },
   //   isp: "Google LLC",
   // };
-
-  useEffect(() => {
-    setFirstTimeRenderFetchOwnIp(false);
-  }, []);
 
   return (
     <div>
