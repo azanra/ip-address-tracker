@@ -22,7 +22,7 @@ function useGetIpAddress(searchKeyword, isFirstRender) {
         return response.json();
       })
       .then((json) => {
-        if (ignore) {
+        if (!ignore) {
           setData(json);
         }
       })
