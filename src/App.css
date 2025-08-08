@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Rubik";
+  src: url("./assets/fonts/Rubik-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Rubik-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  font-family: "Rubik", var(--system-ui);
+}
