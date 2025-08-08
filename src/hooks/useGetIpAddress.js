@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 
 const APIKEY = "at_SNRnb8LP1ushNxlF7SpgpK4RSXsS0";
 
-function useGetIpAddress(searchKeyword, firstTimeRenderFetchOwnIp) {
+function useGetIpAddress(searchKeyword, isFirstRender) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const url = getUrl(searchKeyword, firstTimeRenderFetchOwnIp);
+  const url = getUrl(searchKeyword, isFirstRender);
 
   useEffect(() => {
     if (!url) return;
+
+    let ignore = false;
 
     fetch(url)
       .then((response) => {
@@ -19,16 +21,24 @@ function useGetIpAddress(searchKeyword, firstTimeRenderFetchOwnIp) {
         }
         return response.json();
       })
-      .then((json) => setData(json))
+      .then((json) => {
+        if (ignore) {
+          setData(json);
+        }
+      })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
+
+    return () => {
+      ignore = true;
+    };
   }, [url]);
 
   return { data, loading, error };
 }
 
-function getUrl(searchKeyword, firstTimeRenderFetchOwnIp) {
-  if (searchKeyword.length === 0 && firstTimeRenderFetchOwnIp) {
+function getUrl(searchKeyword, isFirstRender) {
+  if (searchKeyword.length === 0 && isFirstRender) {
     const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${APIKEY}`;
     return url;
   } else if (isValidUrl(searchKeyword)) {
