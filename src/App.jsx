@@ -52,15 +52,17 @@ function App() {
   };
 
   return (
-    <div>
-      <Header handleChange={setSearchKeyword} />
-      {keywordIsNotValid && searchKeyword.length > 0 && (
-        <p>Not a valid ip address or url...</p>
-      )}
-      {/* {loading && <p>Loading the data...</p>}
+    <div className="flex justify-center items-center py-16">
+      <div className="w-[1440px]">
+        <Header handleChange={setSearchKeyword} />
+        {keywordIsNotValid && searchKeyword.length > 0 && (
+          <p>Not a valid ip address or url...</p>
+        )}
+        {/* {loading && <p>Loading the data...</p>}
       {error && <p>Failed to fetch the data</p>}
       {!loading && error === null && <Body data={data} />} */}
-      <Body data={data} />
+        <Body data={data} />
+      </div>
     </div>
   );
 }

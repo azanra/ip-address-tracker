@@ -12,7 +12,7 @@ const LocationMap = ({ data }) => {
       <MapContainer
         center={[lat, lng]}
         zoom={DEFAULT_ZOOM}
-        style={{ height: "100vh", width: "100vw" }}
+        style={{ height: "650px", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
