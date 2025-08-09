@@ -12,8 +12,16 @@
 :root {
   --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --Gray-950: hsl(0, 0%, 17%);
+  --Gray-400: hsl(0, 0%, 58%);
 }
 
 body {
   font-family: "Rubik", var(--system-ui);
+}
+
+.header {
+  background: no-repeat url("./assets/images/pattern-bg-desktop.png");
+  height: 280px;
+  border-radius: 8px;
 }

@@ -27,17 +27,18 @@ const Header = ({ handleChange }) => {
   */
 
   return (
-    <div>
-      <div>
-        <h1>IP Address Tracker</h1>
+    <div className="header pt-8">
+      <div className="flex justify-center items-center mb-[16px]">
+        <h1 className="text-white font-bold text-3xl">IP Address Tracker</h1>
       </div>
-      <div>
+      <div className="flex justify-center items-center">
         <input
           type="text"
           name="keyword"
           id="keyword"
           onChange={(e) => debounceKeyword(e.target.value)}
           placeholder="Search for any IP address or URL"
+          className="bg-white px-8 py-4 rounded-md w-[500px]"
         />
       </div>
     </div>
