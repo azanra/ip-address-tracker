@@ -56,11 +56,21 @@ function App() {
       <div className="w-[1440px]">
         <Header handleChange={setSearchKeyword} />
         {keywordIsNotValid && searchKeyword.length > 0 && (
-          <p>Not a valid ip address or url...</p>
+          <p className="absolute top-54 right-213 text-red-500 font-bold">
+            Not a valid ip address or url...
+          </p>
         )}
-        {/* {loading && <p>Loading the data...</p>}
-      {error && <p>Failed to fetch the data</p>}
-      {!loading && error === null && <Body data={data} />} */}
+        {/* {loading && (
+          <p className="absolute top-54 right-220 text-blue-500 font-bold">
+            Loading the data...
+          </p>
+        )} */}
+        {/* {error && (
+          <p className="absolute top-54 right-215 text-red-500 font-bold">
+            Failed to fetch the data
+          </p>
+        )} */}
+        {/* {!loading && error === null && <Body data={data} />} */}
         <Body data={data} />
       </div>
     </div>
